@@ -10,6 +10,8 @@ retrieved via the admin API.
 The two NodeJS applications and the MongoDB instance run in Docker containers. As MongDB is only supported
 on Ubuntu for aarch64, Ubuntu Xenial is used as a base for all the containers.
 
+Tested with Debian on Qualcomm Dragonboard DB410C. Web apis tested with Postman (Chrome plugin).
+
 ## Install
 
 Build the containers

@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "RESTful web API endpoints interfaced to a local DB",
   "author": "Bill Fletcher <bill.fletcher@linaro.org>",
-  "main": "server.js",
+  "main": "sensor-api.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bfletcher/aarch64-MEAN-stack-sensor-gateway"
+  },
+  "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "start": "node sensor-api.js"
   },
   "dependencies": {
     "express": "^4.13.3",
