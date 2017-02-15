@@ -1,0 +1,16 @@
+{
+  "name": "mean_sensor_api",
+  "version": "1.0.0",
+  "description": "RESTful web API endpoints interfaced to a local DB",
+  "author": "Bill Fletcher <bill.fletcher@linaro.org>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "body-parser": "^1.16.0",
+    "mongoose": "^4.8.1",
+    "mongoose-gen": "^2.1.1"
+  }
+}

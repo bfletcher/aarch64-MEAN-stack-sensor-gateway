@@ -1,0 +1,10 @@
+{
+   "wifi_retries": 5,
+   "wifi_retries_period": 120,
+   "gateway_retries": 5,
+   "gateway_retries_period": 10,
+   "readings_interval": 900,
+   "averaging": "on",
+   "post_failures_max": 3
+}
+

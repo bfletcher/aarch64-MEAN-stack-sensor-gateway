@@ -1,0 +1,8 @@
+{
+  "id": {"type": "String"},
+  "temperature": {"type": "Number"},
+  "humidity": {"type": "Number"},
+  "pir": {"type": "Number"},
+  "lux": {"type": "Number"},
+  "updated_at": { "type": "Date" }
+}
