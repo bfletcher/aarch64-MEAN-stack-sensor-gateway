@@ -19,22 +19,13 @@ mongoose.connect('mongodb://localhost:27017/readingsdatabase')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
-// read config files
-var config = JSON.parse(fs.readFileSync('./sensor_config.json', 'utf8')); 
+// read schema files
 var schemaJson = JSON.parse(fs.readFileSync('./reading_schema.json', 'utf8'));
 
 // 
 // mongoose - setting up the schema and model
 //
 
-// schema needs a kludge to set a default function
-// which adds a timestamp - in case sensor has no RTC.
-// Create a mongoose schema from the JSON document
-// Create a model based on the schema
-
-//generator.setDefault("datenow", function(){
-//return (Date.Now)
-//});
 var ReadingsSchema = new mongoose.Schema(
    generator.convert(schemaJson)
 );
