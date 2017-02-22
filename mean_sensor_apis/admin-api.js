@@ -43,15 +43,37 @@ app.use(bodyParser.json());
 
 
 app.get('/readings',function(req,res) {
-   // Find specific sensor data in the Readings collection. 
-   // sensor id is a query param
-   Readings.find( function (err, readings) {
+   // Optional params:
+   //   sensor id 
+   //   time_from, time_to (as a pair in ISO format)
+
+   var query = new Object();
+   var undef;
+   if (req.query.id !== undef){
+     query.id = req.query.id;
+   }
+   if ((req.query.time_from !== undef) && (req.query.time_to !== undef)){
+     // console.log('** received dates ' + req.query.time_to + " and " + req.query.time_from) ;
+     var startDate = new Date(req.query.time_from).toISOString();
+     var endDate = new Date(req.query.time_to).toISOString(); 
+     // console.log('** processed dates passed to query ' + startDate + " and " + endDate);
+     query.updated_at = {
+       $gte : startDate,
+       $lt : endDate 
+     }
+   }
+
+   console.log('query : ' + query);
+   Readings.find( query , function (err, readings){
      if (err) return next(err);
      res.send(readings);
      console.log(readings)
    });
 });
 
+// ** 
+// ** TEMPORARY!!
+// **
 // port
 app.listen(3001);
 
