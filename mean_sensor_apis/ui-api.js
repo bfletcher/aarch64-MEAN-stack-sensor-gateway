@@ -1,5 +1,5 @@
 //
-// Admin interface to sensor gateway 
+// Human readable interface to sensor gateway 
 //
 
 var fs = require('fs');
@@ -8,6 +8,9 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+
+// mustache - for the templates
+var mustache = require('mustache'); 
 
 // mongoose etc
 var mongoose = require('mongoose');
@@ -42,7 +45,9 @@ var readings = new Readings;
 app.use(bodyParser.json());
 
 
-app.get('/readings',function(req,res) {
+app.get('/ui/:slug', function(req, res){ // get the url and slug info
+  var slug =[req.params.slug][0]; // grab the page slug
+   // query start
    // Optional params:
    //   sensor id 
    //   time_from, time_to (as a pair in ISO format)
@@ -66,17 +71,21 @@ app.get('/readings',function(req,res) {
    console.log('query : ' + query);
    Readings.find( query , function (err, readings){
      if (err) return next(err);
-     res.send(readings);
-     console.log(readings)
+     console.log("Records found:  " + readings.length)
+     var rData = {records:readings}; // wrap the data in a global object... (mustache starts from an object then parses)
+     var page = fs.readFileSync(slug, "utf8"); // bring in the HTML file
+     var html = mustache.to_html(page, rData); // replace all of the data
+     res.send(html); // send to client
    });
+
 });
 
 // ** 
 // ** TEMPORARY!!
 // **
 // port
-//app.listen(3001);
-app.listen(4001);
+//app.listen(3002);
+app.listen(4002);
 
 
 
