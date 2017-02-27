@@ -106,7 +106,7 @@ app.get('/time',function(req,res) {
 });
 
 // port
-app.listen(4000);
+app.listen(3000);
 
 
 
