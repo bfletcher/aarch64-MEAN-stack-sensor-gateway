@@ -82,12 +82,8 @@ app.get('/readings',function(req,res) {
    });
 });
 
-// ** 
-// ** TEMPORARY!!
-// **
 // port
-//app.listen(3001);
-app.listen(4001);
+app.listen(3001);
 
 
 

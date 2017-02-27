@@ -99,11 +99,7 @@ app.get('/readings/:slug', function(req, res){ // get the url and slug info
 
 });
 
-// ** 
-// ** TEMPORARY!!
-// **
 // port
-//app.listen(3002);
-app.listen(4002);
+app.listen(3002);
 
 
