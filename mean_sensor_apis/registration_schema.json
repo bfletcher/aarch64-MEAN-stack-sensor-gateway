@@ -1,0 +1,6 @@
+{
+  "id": {"type": "String"},
+  "version": {"type": "String"},
+  "sensor_list": {"type": "String"},
+  "updated_at": { "type": "Date" }
+}
