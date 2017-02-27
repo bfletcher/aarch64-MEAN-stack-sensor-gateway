@@ -1,0 +1,30 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Web page with sensor data</title>
+</head>
+<body>
+<ul>
+<table style="width:100%">
+ <caption>Sensor registration</caption>
+ <tr>
+  <th>SensorID</th>
+  <th>Version</th>
+  <th>Features</th>
+  <th>Timestamp</th>
+ </tr>
+{{#records}}
+ <tr>
+  <td>{{id}}</td>
+  <td>{{version}}</td>
+  <td>{{sensor_list}}</td>
+  <td>{{updated_at}}</td>
+ </tr>
+{{/records}}
+</table>
+</ul>
+</body>
+</html>
+
+
