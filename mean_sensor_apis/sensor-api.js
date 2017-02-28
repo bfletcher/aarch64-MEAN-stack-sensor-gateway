@@ -26,13 +26,16 @@ mongoose.connect('mongodb://localhost:27017/readingsdatabase')
 // read config files
 var config = JSON.parse(fs.readFileSync('./sensor_config.json', 'utf8')); 
 var schemaJson = JSON.parse(fs.readFileSync('./reading_schema.json', 'utf8'));
+var registrationJson = JSON.parse(fs.readFileSync('./registration_schema.json', 'utf8'));
 
-// 
-// mongoose - setting up the schema and model
-//
+// Generate a schema for registration & a model
 
-// Create a mongoose schema from the JSON document
-// Create a model based on the schema
+var RegistrationSchema = new mongoose.Schema(
+   generator.convert(registrationJson)
+);
+var Registration = mongoose.model('Registration', RegistrationSchema);
+
+// Generate a schema for readings & a model
 
 var ReadingsSchema = new mongoose.Schema(
    generator.convert(schemaJson)
@@ -61,6 +64,21 @@ app.post('/readings',function(req,res) {
    res.send("ack");
 });
 
+// sensor registration as json received in the req.body of the POST request
+app.post('/registration',function(req,res) {
+   // Add a server side timestamp
+   var d = new Date().toISOString();
+   req.body.updated_at = d;
+   // Create an instance of the Registration model in memory
+   // and fill it with req.body JSON which should match the schema
+   var registration = new Registration(req.body);
+   // Save it to database
+   registration.save(function(err){
+     if(err) console.log(err);
+   });
+   res.send("ack");
+});
+
 // sensor configuration update in the body of the GET response
 app.get('/configuration',function(req,res) {
     res.send(config);
@@ -69,6 +87,11 @@ app.get('/configuration',function(req,res) {
 // sensor schema in the body of the GET response
 app.get('/schema',function(req,res) {
     res.send(schemaJson);
+});
+
+// registration schema in the body of the GET response
+app.get('/registration',function(req,res) {
+    res.send(registrationJson);
 });
 
 // gateway time returned in the body of the GET response
@@ -83,7 +106,7 @@ app.get('/time',function(req,res) {
 });
 
 // port
-app.listen(3000);
+app.listen(4000);
 
 
 

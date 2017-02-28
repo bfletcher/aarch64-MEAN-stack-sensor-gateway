@@ -21,17 +21,20 @@ mongoose.connect('mongodb://localhost:27017/readingsdatabase')
 
 // read schema files
 var schemaJson = JSON.parse(fs.readFileSync('./reading_schema.json', 'utf8'));
+var registrationJson = JSON.parse(fs.readFileSync('./registration_schema.json', 'utf8'));
 
-// 
-// mongoose - setting up the schema and model
-//
+var RegistrationSchema = new mongoose.Schema(
+   generator.convert(registrationJson)
+);
+var Registration = mongoose.model('Registration', RegistrationSchema);
+
+var registration = new Registration;
 
 var ReadingsSchema = new mongoose.Schema(
    generator.convert(schemaJson)
 );
 var Readings = mongoose.model('Readings', ReadingsSchema);
 
-// Create an instance of the Readings model in memory 
 var readings = new Readings;
 
 //
@@ -41,6 +44,14 @@ var readings = new Readings;
 // parse JSON bodies
 app.use(bodyParser.json());
 
+app.get('/registration',function(req,res) {
+
+   Registration.find(function (err, registration){
+     if (err) return next(err);
+     res.send(registration);
+     console.log(registration)
+   });
+});
 
 app.get('/readings',function(req,res) {
    // Optional params:

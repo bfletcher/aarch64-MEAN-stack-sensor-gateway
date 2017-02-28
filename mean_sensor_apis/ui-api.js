@@ -24,17 +24,24 @@ mongoose.connect('mongodb://localhost:27017/readingsdatabase')
 
 // read schema files
 var schemaJson = JSON.parse(fs.readFileSync('./reading_schema.json', 'utf8'));
+var registrationJson = JSON.parse(fs.readFileSync('./registration_schema.json', 'utf8'));
 
 // 
 // mongoose - setting up the schema and model
 //
+
+var RegistrationSchema = new mongoose.Schema(
+   generator.convert(registrationJson)
+);
+var Registration = mongoose.model('Registration', RegistrationSchema);
+
+var registration = new Registration;
 
 var ReadingsSchema = new mongoose.Schema(
    generator.convert(schemaJson)
 );
 var Readings = mongoose.model('Readings', ReadingsSchema);
 
-// Create an instance of the Readings model in memory 
 var readings = new Readings;
 
 //
@@ -44,8 +51,20 @@ var readings = new Readings;
 // parse JSON bodies
 app.use(bodyParser.json());
 
+app.get('/registration/:slug', function(req, res){ // get the url and slug info
+  var slug =[req.params.slug][0]; // grab the page slug
+   Registration.find(function (err, registration){
+     if (err) return next(err);
+     console.log("Records found:  " + registration.length)
+     var rData = {records:registration}; // wrap the data in a global object... (mustache starts from an object then parses)
+     var page = fs.readFileSync(slug, "utf8"); // bring in the HTML file
+     var html = mustache.to_html(page, rData); // replace all of the data
+     res.send(html); // send to client
+   });
 
-app.get('/ui/:slug', function(req, res){ // get the url and slug info
+});
+
+app.get('/readings/:slug', function(req, res){ // get the url and slug info
   var slug =[req.params.slug][0]; // grab the page slug
    // query start
    // Optional params:
@@ -86,6 +105,5 @@ app.get('/ui/:slug', function(req, res){ // get the url and slug info
 // port
 //app.listen(3002);
 app.listen(4002);
-
 
 
