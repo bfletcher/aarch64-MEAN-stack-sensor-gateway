@@ -51,6 +51,9 @@ var readings = new Readings;
 // parse JSON bodies
 app.use(bodyParser.json());
 
+//
+// mustache template in the slug file
+//
 app.get('/registration/:slug', function(req, res){ // get the url and slug info
   var slug =[req.params.slug][0]; // grab the page slug
    Registration.find(function (err, registration){
