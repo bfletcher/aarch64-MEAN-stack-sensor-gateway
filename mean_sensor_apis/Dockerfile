@@ -27,10 +27,12 @@ COPY . /usr/src/app
 EXPOSE 3000
 # api port for admin is 3001
 EXPOSE 3001
+# api port for ui is 3002
+EXPOSE 3002
 
-# bash entrypoint script takes either sensor-api or admin-api 
+# bash entrypoint script takes sensor-api, admin-api or ui-api
 # as argument in docker run command line
-# usage: ./server_start.sh [sensor-api,admin-api]
+# usage: ./server_start.sh [sensor-api,admin-api,ui-api]
 RUN ["chmod","+x","server_start.sh"]
 ENTRYPOINT [ "./server_start.sh" ]
 
