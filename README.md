@@ -83,9 +83,12 @@ Success Response: formatted table of schema entries
 URL: /registration
 Method: GET
 Success Response: formatted table of registration entries 
+```
 
-## Example Configuration
+## JSON Objects
 
+### Example Configuration
+```
 {
    "wifi_retries": 5,
    "wifi_retries_period": 120,
@@ -95,9 +98,9 @@ Success Response: formatted table of registration entries
    "averaging": "on",
    "post_failures_max": 3
 }
-
-## Example Schema
-
+```
+### Example Schema
+```
 {
   "id": {"type": "String"},
   "temperature": {"type": "Number"},
@@ -106,4 +109,4 @@ Success Response: formatted table of registration entries
   "lux": {"type": "Number"},
   "updated_at": { "type": "Date" }
 }
-
+```
