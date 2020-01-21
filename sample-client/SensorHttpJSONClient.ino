@@ -88,8 +88,7 @@ void setup() {
         delay(1000);
     }
 
-//  WiFiMulti.addAP("VM781966-2G", "qymnqtne");
-    WiFiMulti.addAP("TP-LINK_8792", "03451182");
+    WiFiMulti.addAP("TP-LINK_8792", "your_wifipassword");
 
 }
 
